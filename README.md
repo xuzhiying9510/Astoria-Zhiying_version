@@ -1,3 +1,7 @@
+#Zhiying's Version
+#Solve the Incompatibility between IPv4 and IPv6
+#Print the whole path  
+
 # Astoria
 
 Astoria is a **research prototype** AS-aware Tor client. It is constantly
