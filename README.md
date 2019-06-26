@@ -1,8 +1,6 @@
 # Zhiying's Version
 
-## Solve the Incompatibility between IPv4 and IPv6
-
-## Print the whole path  
+Solve the Incompatibility between IPv4 and IPv6
 
 # Astoria
 
@@ -65,9 +63,4 @@ In ./astoria-tor-client/src/or:
 Remember, the longer you use Astoria, the faster it gets. Expect the first few
 pages you load to take a couple of minutes.
 
-## Support
-
-For support, please send an email to Rishab (rnithyanand AT cs DOT stonybrook DOT edu) or Oleksii (ostarov AT cs DOT stonybrook DOT edu).
-We will follow the principle of best-effort support, without providing any
-guarantees.
 # Astoria-Zhiying_version
