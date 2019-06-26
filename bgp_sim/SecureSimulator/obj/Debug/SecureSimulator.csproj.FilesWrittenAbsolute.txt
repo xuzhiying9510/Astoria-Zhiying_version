@@ -8,3 +8,8 @@
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/SecureSimulator/bin/Debug/SecureSimulator.dll
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/SecureSimulator/obj/Debug/SecureSimulator.dll
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/SecureSimulator/obj/Debug/SecureSimulator.dll.mdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/SecureSimulator/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/SecureSimulator/bin/Debug/SecureSimulator.pdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/SecureSimulator/bin/Debug/SecureSimulator.dll
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/SecureSimulator/obj/Debug/SecureSimulator.dll
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/SecureSimulator/obj/Debug/SecureSimulator.pdb

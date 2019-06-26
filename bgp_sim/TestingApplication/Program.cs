@@ -54,10 +54,14 @@ namespace TestingApplication
             // host running the application.
             //IPostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             //IPAddress ipAddress = ipHostInfo.AddressList[0];
+
             IPEndPoint localEndPoint = new IPEndPoint(Dns.Resolve("localhost").AddressList[0], port);
+            // IPEndPoint localEndPoint = new IPEndPoint(0x7F000001, port);
+            
+            //Console.WriteLine("IP address {0}", Dns.Resolve("localhost").AddressList[0]); by Yang
 
             // Create a TCP/IP socket.
-            Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket listener = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
 
             // Bind the socket to the local endpoint and 
             // listen for incoming connections.

@@ -8,3 +8,14 @@
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/testingapplication/bin/Debug/TestingApplication.exe
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/testingapplication/obj/x86/Debug/TestingApplication.exe
 /Network/Servers/nrgserv.nrg.cs.sunysb.edu/Volumes/Macintosh HD2/nrg/mniaz/Work/RoutingPoliciesProject/testingapplication/obj/x86/Debug/TestingApplication.exe.mdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/TestingApplication.exe.config
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/TestingApplication.pdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/TestingApplication.exe
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/obj/x86/Debug/TestingApplication.exe
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/obj/x86/Debug/TestingApplication.pdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/CloudLibrary.dll
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/SecureSimulator.dll
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/SecureSimulator.pdb
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/Microsoft.WindowsAzure.StorageClient.dll
+/home/xuzhiying/Project_Attack/bgp_hijacking/Astoria/bgp_sim/TestingApplication/bin/Debug/Microsoft.WindowsAzure.StorageClient.xml
