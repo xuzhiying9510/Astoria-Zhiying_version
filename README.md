@@ -1,8 +1,8 @@
-#Zhiying's Version
+# Zhiying's Version
 
-##Solve the Incompatibility between IPv4 and IPv6
+## Solve the Incompatibility between IPv4 and IPv6
 
-##Print the whole path  
+## Print the whole path  
 
 # Astoria
 
