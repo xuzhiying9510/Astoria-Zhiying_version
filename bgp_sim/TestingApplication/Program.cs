@@ -87,10 +87,10 @@ namespace TestingApplication
                     }
 
                     // Show the data on the console.
-                    Console.WriteLine("Text received : {0}", data);
+                    //Console.WriteLine("Text received : {0}", data);
 
                     string[] args = data.Split(' ');
-
+            
                     int i;
                     for (i = 0; i < args.Length-1; ++i) {
                         if ("-q" == args[i]) break;
@@ -105,32 +105,34 @@ namespace TestingApplication
                         }   
                     }   
 
-                    Console.WriteLine("DESTS " + dests.Count);
+                    //Console.WriteLine("DESTS " + dests.Count);
 
                     // Approaching queries
                    
                     StringBuilder res = new StringBuilder(1000000);
-    
+                    
                     int k = 0;
-                    for (i = i+1; i < args.Length-1; i += 2) { 
+                    i = 0; //zhiying
+                    for (i = i+1; i < args.Length-1; i += 2) {
                         if ("<EOFc>" == args[i]) break;
-                        Console.WriteLine(k);
+                        //Console.WriteLine(k);
                         string key = args[i] + "-" + args[i+1];
                         if (cache.ContainsKey(key)) {
+                            //Console.WriteLine("cache.ContainsKey(key) for" + args[i] + " and " + args[i+1]);//zhiying
                             res.Append(cache[key]);
+                            Console.WriteLine(cache[key]);//zhiying
                             k++;
                             continue;
                         }
-                       
                         StringBuilder tmp = new StringBuilder();
 
-                        /*
-                        //int l = getPath(ref d, args[i], args[i+1]);
-                        //getAllPathsOfLength(ref d, l, args[i], args[i+1], ref tmp);
-                        getPath2(ref d, args[i], args[i+1], ref tmp);
-                        */
 
-                        getBestPaths(ref d, args[i], args[i+1], ref tmp);   
+                        //int l = getPath(ref d, args[i], args[i+1]); //zhiying
+                        //Console.WriteLine("l is " + l);//zhiying
+                        //getAllPathsOfLength(ref d, l, args[i], args[i+1], ref tmp); //zhiying
+                        //getPath2(ref d, args[i], args[i+1], ref tmp);
+
+                        getBestPaths(ref d, args[i], args[i+1], ref tmp);   //zhiying
 
                         res.Append(tmp);
                         cache.Add(key, tmp.ToString());
@@ -145,7 +147,7 @@ namespace TestingApplication
                     //Console.WriteLine(res.ToString());
 
                     int sent = handler.Send(msg);
-                    Console.WriteLine("Sent: " + sent);
+                    //Console.WriteLine("Sent: " + sent);
 
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
@@ -235,7 +237,7 @@ namespace TestingApplication
 
 		// Graph initialization
         	//NetworkGraph g = new NetworkGraph();
-		
+
 		// E.g., input Cyclops_caida.txt
 		if (File.Exists(args[1]))
                 {
@@ -250,8 +252,8 @@ namespace TestingApplication
                         c2pEdges += ASNode.GetNeighborTypeCount(RelationshipType.ProviderTo);
                     }
 		    
-                    //Console.WriteLine("Read in the graph, it has " + g.NodeCount + " nodes and " + g.EdgeCount + " edges.");
-                    //Console.WriteLine("P2P: " + p2pEdges + " C2P: " + c2pEdges);
+                    Console.WriteLine("Read in the graph, it has " + g.NodeCount + " nodes and " + g.EdgeCount + " edges.");//zhiying
+                    Console.WriteLine("P2P: " + p2pEdges + " C2P: " + c2pEdges);//zhiying
 		}
                 else
                 {
@@ -269,7 +271,6 @@ namespace TestingApplication
 		        if ("-q" == args[i]) break;
                         if (dests.Contains(args[i])) continue;
                         dests.Add(args[i]);
-		        
                         Destination newD = new Destination();
                         if (initDestination(ref g, ref newD, args[i]))
 		        {
@@ -279,14 +280,14 @@ namespace TestingApplication
 		    }
 
                     Console.WriteLine("DESTS " + dests.Count);
-		
+            
 		    // Approaching queries
 		    for (i = i+1; i < args.Length; i += 2) {
 		       
                         //StringBuilder res = new StringBuilder(); 
-		        //int l = getPath(ref d, args[i], args[i+1]);
+                //int l = getPath(ref d, args[i], args[i+1]);
 		        //getAllPathsOfLength(ref d, l, args[i], args[i+1], ref res);
-		        
+
                         List<List<UInt32>> allPaths = new List<List<UInt32>>();
 
                         if (d.ContainsKey(args[i+1])) {
@@ -344,15 +345,15 @@ namespace TestingApplication
             Console.WriteLine("Initializing variables and running RTA");
             */
 	    MiniDestination miniDest = SimulatorLibrary.initMiniDestination(g, destNum, false);
-            d = new Destination(miniDest);
+            d = new Destination(miniDest);//zhiying. chosenPath is created again.
             bool[] tempS = new bool[Constants._numASNs];
             for (int i = 0; i < tempS.Length; i++) {
                  tempS[i] = false;
             }
 	    d.UpdatePaths(tempS);
-            /*
-	    Console.WriteLine("Done initializing. Current active destination is: " + destNum);
-            */
+            
+	    //Console.WriteLine("Done initializing. Current active destination is: " + destNum);
+            
 	    return true;
         }
 
@@ -373,8 +374,11 @@ namespace TestingApplication
                     foreach (List<UInt32> path in allPaths) {
                         for (int i = 0; i < path.Count; ++i) {
                             asnSet.Add(path[i]);
+                            Console.WriteLine(path[i]);//zhiying
                         }
+                        break;//warning,from zhiying, only print one path
                     }
+                    Console.WriteLine("-");//zhiying
                     foreach (UInt32 asn in asnSet) {
                         res.Append(asn + "\n");
                     } 
@@ -391,19 +395,20 @@ namespace TestingApplication
             UInt32 ASN;
             if (!UInt32.TryParse(src, out ASN) || !int.TryParse(dst, out dstNum))
             {
-		/*
-                Console.WriteLine("Invalid ASN or destination.");
-                */
+		
+                Console.WriteLine("Invalid ASN or destination."); //zhiying
+                
 		return 0;
             }
 
             if (ds.ContainsKey(dst))
             {
-                //if (d.destination == dstNum)
+
+                Destination d = ds[dst];
+                if (d.destination == dstNum)//zhiying
                 {
-                    //Console.WriteLine("> Path from " + ASN + " to " + d.destination + " is " + d.GetPath(ASN));
+                    Console.WriteLine("> Path from " + ASN + " to " + d.destination + " is " + d.GetPath(ASN));//zhiying
                     
-                    Destination d = ds[dst];
 		    string tmp = d.GetPath(ASN);
 
 		    tmp = tmp.Replace("-", "");
@@ -411,14 +416,14 @@ namespace TestingApplication
 		    tmp = tmp.Replace(">", ""); 
 		    tmp = tmp.Replace("  ", " ");
 
-		    //Console.WriteLine(tmp);
+		    Console.WriteLine("tmp:"+tmp);
 		    string[] ases = tmp.Split(' ');
 		    return ases.Length;
                 }
             }
-	    /*
+	    
             Console.WriteLine("WARNING: Could not find destination!");
-            */
+
 	    return 0;
         }
 
@@ -436,6 +441,7 @@ namespace TestingApplication
             {
                 Destination d = ds[dst];
                 string tmp = d.GetPath(ASN);
+                Console.WriteLine(tmp); //zhiying
                 tmp = tmp.Replace("-", "");
                 tmp = tmp.Replace("<", "");
                 tmp = tmp.Replace(">", "");
@@ -450,6 +456,7 @@ namespace TestingApplication
 
 	private static void getAllPathsOfLength(ref Dictionary<string, Destination> ds, int length, string src, string dst, ref StringBuilder res)
 	{
+
                 res.Append("ASes from " + src + " to " + dst + ", length: " + length + "\n");
 		Console.WriteLine("ASes from " + src + " to " + dst + ", length: " + length);
 
@@ -507,7 +514,7 @@ namespace TestingApplication
 					
 					if (arr.Length > 0) {
                                                 res.Append(string.Join("\n", arr) + "\n");
-						Console.WriteLine(string.Join("\n", arr));
+						Console.WriteLine(string.Join("\n", arr));//zhiying: print the path
 						res.Append("-\n");
                                                 Console.WriteLine("-");
 					        return;

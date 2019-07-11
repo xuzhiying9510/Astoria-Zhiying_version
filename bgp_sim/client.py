@@ -1,10 +1,20 @@
+#L: 9009(rank:110), 9121(rank:130)
+#M: 6130(rank:1246),8001(rank:968)
+#S: 9008(rank:4049),21232(rank:3514)
+
 import socket
+import pickle
 
 TCP_IP = '::1'
 TCP_PORT = 11000
 
-asn_srcs = ['1']
-dest_asn = '3'
+with open("ASes.txt", "rb") as fp:
+        asn_srcs = pickle.load(fp)
+
+asn_srcs = list(map(str,asn_srcs))
+print asn_srcs
+
+dest_asn = '21232'
 MESSAGE = ""
 count = 0
 
@@ -15,7 +25,7 @@ for asn_src in asn_srcs:
     count += 1
 MESSAGE += " <EOFc> "
 print "Sending message to BGPSim to get %d paths towards %s.." % (count, dest_asn)
-
+'''
 s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
 s.connect((TCP_IP, TCP_PORT))
 s.send(MESSAGE)
@@ -32,4 +42,4 @@ while True:
         break
 
 s.close()
-
+'''

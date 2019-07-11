@@ -36,7 +36,8 @@ namespace SecureSimulator
 
 
         public Destination(MiniDestination miniDestination)
-        {
+        {   
+            //Console.WriteLine("Destination(MiniDestination miniDestination) ");//zhiying
             this.BucketTable = miniDestination.BucketTable;
             this.Best = miniDestination.Best;
             this.BestNew = miniDestination.BestNew;
@@ -49,12 +50,18 @@ namespace SecureSimulator
             this.ChosenParent = new UInt32[this.Best.Length];
             this.ChosenPath = new List<UInt32>[this.Best.Length];
 
+            //zhiying
+            //this.ChosenParent = miniDestination.ChosenParent;
+            //this.ChosenPath = miniDestination.ChosenPath;
+            //this.SecP = miniDestination.SecP;
+            
+
             this.SecP = new bool[this.Best.Length];
             this.U = new Int64[this.Best.Length];
             for (int i = 0; i < SecP.Length; i++)
                 SecP[i] = false;
             //init the destination path to itself to kick things off
-            //this.SecP[this.destination] = true; //*bug*
+            this.SecP[this.destination] = true; //*bug*
             this.ChosenPath[this.destination] = new List<UInt32>();
             this.ChosenPath[this.destination].Add(this.destination);
             this.ChosenParent[this.destination] = this.destination;
@@ -87,7 +94,7 @@ namespace SecureSimulator
         /// </summary>
         public Destination()
         {
-
+            //Console.WriteLine("Destination() ");//zhiying
         }
 
 
@@ -150,7 +157,7 @@ namespace SecureSimulator
             {
                 for (int col = 0; col < BucketTable[0].GetLength(0); col++)
                 {
-                    if (BucketTable[row][ col] == null)
+                    if (BucketTable[row][col] == null)
                         continue;
                     foreach (UInt32 i in BucketTable[row][ col])
                     {
@@ -172,8 +179,8 @@ namespace SecureSimulator
                             tieBreakSet = Best[i];
 
                       UInt32 newParent = ModifiedBfs.tieBreak(tieBreakSet,i);
-
-                        updatePath(i, ChosenPath[newParent], col, ref ChosenPath);
+                        updatePath(i, ChosenPath[newParent], col, ref ChosenPath);//this function find route for traffic zhiying
+                        
                         ChosenParent[i] = newParent; //update our parent as well
                         SecP[i] = SecP[newParent]& S[i];//AND it with our security to keep non-secure nodes from announcing available secure paths
                     }
@@ -187,6 +194,7 @@ namespace SecureSimulator
         /// <returns>vector with 1 element per ASN with that ASNs utility.</returns>
         public void ComputeU(UInt16[] W)
         {
+            Console.WriteLine("ComputeU(UInt16[] W)");//zhiying
             //4 temporary utility types (customer sub tree size, 
             //customer weighted subtree, peer weighted subtree and provider weighted subtree
             const Int32 CustomerTreeSize = 0;
@@ -294,13 +302,14 @@ namespace SecureSimulator
         /// <param name="relationshipType"></param>
         public void updatePath(UInt32 currASN, List<UInt32> parentPath, int relationshipType, ref List<UInt32>[] CPToUpdate)
         {
-
+            //Console.WriteLine("We are updating currASN: "+currASN+"   parentPath: "+parentPath[0]);//zhiying
             CPToUpdate[currASN] = new List<UInt32>();
             //add itself 
             CPToUpdate[currASN].Add(currASN);
             //add its parent with its relationship to itself
             if (parentPath!= null && parentPath[0] != currASN) // check that it isn't its own parent (ie. a destination)
             {
+                //Console.WriteLine("add its parent with its relationship to itself");//zhiying
                 CPToUpdate[currASN].Add(join(parentPath[0], relationshipType));
                 //add the rest of the parent's path.
                 CPToUpdate[currASN].AddRange(parentPath.GetRange(1, parentPath.Count - 1));
@@ -326,7 +335,6 @@ namespace SecureSimulator
                 UInt32 ASN;
                 int col;
                 unjoin(ChosenPath[n][i], out ASN, out col);
-
                 switch (col)
                 {
                     case _CUSTOMERCOLUMN:
@@ -594,13 +602,14 @@ namespace SecureSimulator
         public bool GetAllBestPaths(UInt32 src, UInt32 dst, ref List<List<UInt32>> allPaths) 
         {
             if (dst != destination) return false;
-        
+
             if (Best[src] != null) {
                 // BFS queue of paths
                 Queue<List<UInt32>> queue = new Queue<List<UInt32>>();
                 // Starting from the source
                 List<UInt32> pathFirst = new List<UInt32>();
                 pathFirst.Add(src);
+                //Console.WriteLine("Add "+src); //zhiying
                 queue.Enqueue(pathFirst);
                 while (queue.Count > 0) {
                     List<UInt32> path = queue.Dequeue();
@@ -615,6 +624,7 @@ namespace SecureSimulator
                             List<UInt32> pathNew = new List<UInt32>();
                             pathNew.AddRange(path);
                             pathNew.Add(Best[last][i]);
+                            //Console.WriteLine("Add "+Best[last][i]); //zhiying
                             queue.Enqueue(pathNew);
                         }
                     }

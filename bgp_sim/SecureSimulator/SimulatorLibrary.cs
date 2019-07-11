@@ -468,7 +468,7 @@ namespace SecureSimulator
 
         public static MiniDestination initMiniDestination(NetworkGraph g, UInt32 destination, bool readOnly)
         {
-           // Console.WriteLine("Start initalizing miniDest " + destination);
+            //Console.WriteLine("Start initalizing miniDest " + destination + "--------------------");//zhiying
 
             MiniDestination miniDestination = new MiniDestination();
             miniDestination.destination = destination;
@@ -551,7 +551,7 @@ namespace SecureSimulator
                 }
             }
 
-           // Console.WriteLine("Done initalizing miniDest " + destination);
+           //Console.WriteLine("Done initalizing miniDest " + destination + "--------------------");
             return miniDestination;
 
         }
@@ -572,7 +572,7 @@ namespace SecureSimulator
 
         public static MiniDestination initMiniDestinationSP(NetworkGraph g, UInt32 destination, bool readOnly)
         {
-            // Console.WriteLine("Start initalizing miniDest " + destination);
+            Console.WriteLine("Start initalizing miniDestSP " + destination);
 
             MiniDestination miniDestination = new MiniDestination();
             miniDestination.destination = destination;

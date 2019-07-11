@@ -236,6 +236,7 @@ namespace SecureSimulator
                 // Read a single line at a time, which corresponds to a single edge
                 while ((line = sr.ReadLine()) != null)
                 {
+                    
                     // Line number housekeeping and debug output
                     lineNumber++;
                     if (lineNumber % 1000 == 0)

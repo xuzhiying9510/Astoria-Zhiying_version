@@ -76,13 +76,12 @@ namespace SecureSimulator
             RelationshipType allowedRelationships, ref List<UInt32>[] Best, ref List<UInt32>[] BestNew, ref List<UInt32>[][] BucketTable, ref List<UInt32>[] ChosenPath,
             ref UInt32[] ChosenParent, ref byte[] L, ref byte[] BestRelation)
         {
-           
             Destination utility = new Destination();
             // Initialize some stuff...
             Queue<AsNode> nodeQueue = new Queue<AsNode>(graph.NodeCount);
             graph.BfsTreeNodeCount = 0;
 
-            // "Visit" the source nodes
+            // "Visit" the source nodes (They are dest actually)
             foreach (UInt32 srcNodeNum in srcNodeNums)
             {
                 AsNode currentNode = graph.GetNode(srcNodeNum);
@@ -112,7 +111,8 @@ namespace SecureSimulator
                 // Dequeue a node to examine.  Iterate through all of its neighbors of the specified type (plus
                 // existing BFS children) and visit them.
                 AsNode currentNode = nodeQueue.Dequeue();
-                foreach (AsNode oppositeNode in currentNode.GetNeighborsByType(allowedRelationships | RelationshipType.BfsParentOf).Distinct())
+                foreach (AsNode oppositeNode in currentNode.GetNeighborsByType(allowedRelationships | RelationshipType.BfsParentOf).Distinct())//zhiying
+                //foreach (AsNode oppositeNode in graph.GetAllNodes())//zhiying
                 {
                     bool addedtoBest = false;
                     // If this is the first time we've see this node, mark it and possibly enqueue it for later examination
@@ -122,6 +122,7 @@ namespace SecureSimulator
                         // Case 1: oppositeNode is a newly discovered node, also unseen in any previous BFS runs
                         if (oppositeNode.PriorBfsStatus == NodePriorBfsStatus.NotDiscoveredInPriorBfs)
                         {
+                            //Console.WriteLine("Case 1: oppositeNode is a newly discovered node, also unseen in any previous BFS runs");//zhiying
                             oppositeNode.InProcessBfsStatus = NodeInProcessBfsStatus.SeenInCurrentRun;
                             oppositeNode.BfsDepth = currentNode.BfsDepth + 1;
                             oppositeNode.BfsParentNode = currentNode;
@@ -147,7 +148,7 @@ namespace SecureSimulator
                                     BestRelation[oppositeNode.NodeNum] = Destination._CUSTOMERCOLUMN;
                                     BucketTable[oppositeNode.BfsDepth][Destination._CUSTOMERCOLUMN].Add(oppositeNode.NodeNum);
                                     utility.updatePath(oppositeNode.NodeNum, ChosenPath[currentNode.NodeNum], Destination._CUSTOMERCOLUMN, ref ChosenPath);
-
+                                    //Console.WriteLine(oppositeNode.NodeNum+" "+currentNode.NodeNum);//zhiying
                                 }
                                 //else if (allowedRelationships.HasFlag(RelationshipType.ProviderTo)) -- this is .NET 4, downgraded to make comptabilte with .NET 3.5
                                 else if ((allowedRelationships & RelationshipType.ProviderTo) == RelationshipType.ProviderTo)
@@ -160,7 +161,7 @@ namespace SecureSimulator
                                     BestRelation[oppositeNode.NodeNum] = Destination._PROVIDERCOLUMN;
                                     BucketTable[oppositeNode.BfsDepth][Destination._PROVIDERCOLUMN].Add(oppositeNode.NodeNum);
                                     utility.updatePath(oppositeNode.NodeNum, ChosenPath[currentNode.NodeNum], Destination._PROVIDERCOLUMN, ref ChosenPath);
-
+                                    //Console.WriteLine(oppositeNode.NodeNum+" "+currentNode.NodeNum);//zhiying
                                 }
 
                                 //else if (allowedRelationships.HasFlag(RelationshipType.PeerOf)) -- this is .NET 4, downgraded to make comptabilte with .NET 3.5
@@ -173,6 +174,7 @@ namespace SecureSimulator
                                     BestRelation[oppositeNode.NodeNum] = Destination._PEERCOLUMN;
                                     BucketTable[oppositeNode.BfsDepth][Destination._PEERCOLUMN].Add(oppositeNode.NodeNum);
                                     utility.updatePath(oppositeNode.NodeNum, ChosenPath[currentNode.NodeNum], Destination._PEERCOLUMN, ref ChosenPath);
+                                    //Console.WriteLine(oppositeNode.NodeNum+" "+currentNode.NodeNum);//zhiying
                                 }
 
                                 /*** update this node's Best set ***/
@@ -213,6 +215,7 @@ namespace SecureSimulator
                         // Case 2: oppositeNode was found in a prior BFS run, and the path to oppositeNode went through currentNode
                         else if (oppositeNode.BfsParentNode == currentNode)
                         {
+                            //Console.WriteLine("Case 2: oppositeNode was found in a prior BFS run, and the path to oppositeNode went through currentNode");//zhiying
                             // Don't need to do any marking of the opposite node because it's already in the BFS tree.
                             // Just enqueue it so we can continue our BFS from that node at some later time.
                             oppositeNode.InProcessBfsStatus = NodeInProcessBfsStatus.SeenInCurrentRun;
@@ -233,6 +236,7 @@ namespace SecureSimulator
                     // We've seen this node before...
                     else
                     {
+                        //Console.WriteLine("Case 3: oppositeNode was found in a prior BFS run, and the path to oppositeNode did NOT go through currentNode");//zhiying
                         // Did we find an alternate route to the opposite node?
                         // We cannot change the route if this node was found in a prior BFS run.
                         // This is where tie-breaking happens...
@@ -314,18 +318,18 @@ namespace SecureSimulator
                         {
                             //Console.WriteLine(oppositeNode.NodeNum + "--> Entered for: " + ((UInt32)(((uint)encoded) >> 3) + " relation: " + (int)(encoded & 7)));
                             //Console.WriteLine("encoded = " + encoded);
-                            if (encoded != 0)
-                            {
-                                //Console.WriteLine(oppositeNode.NodeNum + "--> Entered for: " + ((UInt32)(((uint)encoded) >> 3) + " relation: " + (int)(encoded & 7)));
-                                //if ((((allowedRelationships & RelationshipType.ProviderTo) == RelationshipType.ProviderTo) && oppositeNode.InProcessBfsStatus == NodeInProcessBfsStatus.ProcessedInCurrentRun))
-                                //{
-                                //    Console.Write("Rel: " + allowedRelationships + " & Node status: " + oppositeNode.InProcessBfsStatus + "\n");
-                                //}
-                                //else
+                            //if (encoded != 0)
+                            //{
+                            //    Console.WriteLine(oppositeNode.NodeNum + "--> Entered for: " + ((UInt32)(((uint)encoded) >> 3) + " relation: " + (int)(encoded & 7)));
+                            //    if ((((allowedRelationships & RelationshipType.ProviderTo) == RelationshipType.ProviderTo) && oppositeNode.InProcessBfsStatus == NodeInProcessBfsStatus.ProcessedInCurrentRun))
+                            //    {
+                            //        Console.Write("Rel: " + allowedRelationships + " & Node status: " + oppositeNode.InProcessBfsStatus + "\n");
+                            //    }
+                            //    else
                                 {
                                     BestNew[oppositeNode.NodeNum].Add(encoded);
                                 }
-                            }
+                            //}
                         }
                     }
                 }
@@ -344,6 +348,30 @@ namespace SecureSimulator
                 }
                 node.InProcessBfsStatus = NodeInProcessBfsStatus.UnseenInCurrentRun;
             }
+            
+            /*
+            //zhiying
+            for(int n = 1; n < 6;n++){
+            string toreturn = "";
+
+            if (ChosenPath[n] != null)
+			{
+                toreturn = Convert.ToString(ChosenPath[n][0]);//first element is this node with no annotations.
+                for (int i = 1; i < ChosenPath[n].Count; i++)
+            {
+                UInt32 ASN;
+                int col;
+                ASN = (UInt32)(((uint)ChosenPath[n][i]) >> 3);
+                col = (int)(ChosenPath[n][i] & 7); //and with 7 to get lower 3 bits
+                toreturn = toreturn + " -- ";
+
+                toreturn = toreturn + ASN;
+                Console.WriteLine(toreturn);
+            }
+                //Console.WriteLine("n"+n+"i"+i+"chosenpath"+ChosenPath[n][i]);
+            }}
+            //zhiying
+            */
         }
 
         public static UInt32 tieBreak(List<UInt32> tieBreakSet,UInt32 currNode)
@@ -584,6 +612,8 @@ namespace SecureSimulator
         public static NetworkGraph RoutingTreeAlg(NetworkGraph graph, UInt32 rootNodeNum, ref List<UInt32>[] Best, ref List<UInt32>[] BestNew, ref List<UInt32>[][] BucketTable,
             ref List<UInt32>[] ChosenPath, ref UInt32[] ChosenParent, ref byte[] L, ref byte[] BestRelation)
         {
+            //Console.WriteLine("RoutingTreeAlg, rootNodeNum:" + rootNodeNum);//zhiying
+            
             //BFS to create the honest tree
             List<UInt32> nodeList = new List<UInt32>();
             nodeList.Add(rootNodeNum);
