@@ -10,9 +10,7 @@ TCP_PORT = 11000
 
 with open("ASes.txt", "rb") as fp:
         asn_srcs = pickle.load(fp)
-
 asn_srcs = list(map(str,asn_srcs))
-print asn_srcs
 
 dest_asn = '21232'
 MESSAGE = ""

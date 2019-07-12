@@ -1,9 +1,0 @@
-Read in the graph, it has 50322 nodes and 403206 edges.
-P2P: 195014 C2P: 208192
-Initialized and added 4
-PRECOMP: 1
-Initialized and added 1
-Initialized and added 2
-Initialized and added 3
-CACHE: 4
-Waiting for a connection on 11000 ...
