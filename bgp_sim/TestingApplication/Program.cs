@@ -87,12 +87,13 @@ namespace TestingApplication
                     }
 
                     // Show the data on the console.
-                    //Console.WriteLine("Text received : {0}", data);
+                    // Console.WriteLine("Text received : {0}", data);
 
                     string[] args = data.Split(' ');
             
                     int i;
-                    for (i = 0; i < args.Length-1; ++i) {
+                    for (i = 0; i < args.Length-1; i = i+2) {
+                    //for (i = 0; i < args.Length-1; ++i) { //zhiying. only initialize destination
                         if ("-q" == args[i]) break;
                         if (dests.Contains(args[i])) continue;
                         dests.Add(args[i]);
