@@ -44,7 +44,7 @@ The toolkit is ready to go. You just need to have "mono" installed.
 First, you need to get the path prediction toolkit running. 
 In ./bgp_sim: 
 
-> mono TestingApplication/bin/Release/TestingApplication.exe -server11000 TestingApplication/bin/Release/Cyclops_caida_cons.txt precomp/US-precomp367.txt cache/exit_asns.txt
+> mono TestingApplication/bin/Debug/TestingApplication.exe -server11000 TestingApplication/bin/Release/Cyclops_caida_cons.txt US-precomp367.txt exit_asns.txt
 
 Cyclops_caida_cons.txt is the Caida AS topology to be used while performing 
 prediction. US-precomp367.txt is some precomputed data you can use to make
